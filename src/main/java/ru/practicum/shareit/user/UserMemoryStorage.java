@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @Data
 @AllArgsConstructor
 @Repository
-public class UserMemoryStorage implements UserStorage{
+public class UserMemoryStorage implements UserStorage {
 
     private Map<Long, User> users;
     private Set<String> emails;

@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @AllArgsConstructor
-public class ItemMemoryStorage implements ItemStorage{
+public class ItemMemoryStorage implements ItemStorage {
 
     private final Map<Long, Item> items;
 
