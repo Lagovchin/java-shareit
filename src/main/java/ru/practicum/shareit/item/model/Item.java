@@ -31,4 +31,8 @@ public class Item {
     @OneToOne
     @JoinColumn(name = "request_id", nullable = true)
     private ItemRequest request;
+
+    public Item() {
+
+    }
 }

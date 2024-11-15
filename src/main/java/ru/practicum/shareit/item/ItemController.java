@@ -10,6 +10,7 @@ import ru.practicum.shareit.exceptions.NotFoundDataException;
 import ru.practicum.shareit.exceptions.NotOwnerException;
 import ru.practicum.shareit.exceptions.ValidationException;
 import ru.practicum.shareit.item.dto.ItemDto;
+import ru.practicum.shareit.item.dto.ItemDtoResponse;
 import ru.practicum.shareit.item.model.Item;
 
 import java.util.List;
@@ -41,20 +42,20 @@ public class ItemController {
 
     @GetMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Item getItemById(@PathVariable long id) throws NotFoundDataException {
+    public ItemDtoResponse getItemById(@PathVariable long id) throws NotFoundDataException {
         return itemService.getItemById(id);
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<Item> getUserItems(@RequestHeader ("X-Sharer-User-Id") long userId) throws NotFoundDataException {
+    public List<ItemDtoResponse> getUserItems(@RequestHeader ("X-Sharer-User-Id") long userId) throws NotFoundDataException {
         return itemService.getUserItems(userId);
     }
 
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteItem(@PathVariable long id) throws NotFoundDataException {
-        itemService.deleteItem(id);
+        itemService.delete(id);
     }
 
     @GetMapping(value = "/search")
