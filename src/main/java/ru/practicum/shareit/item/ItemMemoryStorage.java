@@ -22,7 +22,7 @@ public class ItemMemoryStorage implements ItemStorage {
     public Item addItem(ItemDto itemDto, User user) throws NotFoundDataException {
         long id = generateId();
         id++;
-        Item newItem = ItemMapper.fromDto(id, itemDto, user);
+        Item newItem = ItemMapper.fromDto(itemDto, user);
         items.put(newItem.getId(), newItem);
         return getItemById(newItem.getId());
     }
