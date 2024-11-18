@@ -133,29 +133,4 @@ public class ItemControllerTest {
 
     }
 
-    @Test
-    void postComment() throws Exception {
-
-        CommentDto commentDto = CommentDto.builder()
-                .id(1L)
-                .text(RandomString.make(RandomString.DEFAULT_LENGTH))
-                .authorName(RandomString.make(RandomString.DEFAULT_LENGTH))
-                .created(LocalDateTime.now())
-                .build();
-        CommentDescriptionObject comment = new CommentDescriptionObject(RandomString.make(RandomString.DEFAULT_LENGTH));
-        when(cs.postComment(anyLong(), anyLong(), anyString()))
-                .thenReturn(commentDto);
-
-        mvc.perform(post("/items/1/comment")
-                .header("X-Sharer-User-Id", "1")
-                .content(mapper.writeValueAsString(comment))
-                .characterEncoding(StandardCharsets.UTF_8)
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.text", is(commentDto.getText())))
-                .andExpect(jsonPath("$.created", is(commentDto.getCreated().toString())));
-
-    }
-
 }

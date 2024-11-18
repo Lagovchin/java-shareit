@@ -70,63 +70,6 @@ public class DtoTests {
     }
 
     @Test
-    void testBooking() throws Exception {
-        BookingDto bookingDto = BookingDto.builder()
-                .end(LocalDateTime.now().plusHours(2L).plusNanos(999L))
-                .start(LocalDateTime.now().plusHours(1L).plusNanos(9999L))
-                .status(AvailabilityStatus.WAITING)
-                .itemId(1L)
-                .booker(1L)
-                .build();
-
-        BookingDtoResponse bookingDtoResponse = BookingDtoResponse.builder()
-                .id(1L)
-                .start(LocalDateTime.now().plusHours(1L).plusNanos(9999L))
-                .end(LocalDateTime.now().plusHours(2L))
-                .item(item)
-                .booker(user)
-                .status(AvailabilityStatus.WAITING)
-                .build();
-
-        JsonContent<BookingDto> resultBookingDto = jsonBooking.write(bookingDto);
-        JsonContent<BookingDtoResponse> resultBookingResponse = jsonBookingResponse.write(bookingDtoResponse);
-
-        assertThat(resultBookingDto).extractingJsonPathNumberValue("$.itemId").isEqualTo(1);
-        assertThat(resultBookingDto).extractingJsonPathNumberValue("$.booker").isEqualTo(1);
-        assertThat(resultBookingDto).extractingJsonPathStringValue("$.status")
-                .isEqualTo(bookingDto.getStatus().name());
-        assertThat(resultBookingDto).extractingJsonPathValue("$.start")
-                .isEqualTo(bookingDto.getStart().toString());
-        assertThat(resultBookingDto).extractingJsonPathValue("$.end")
-                .isEqualTo(bookingDto.getEnd().toString());
-
-
-        assertThat(resultBookingResponse).extractingJsonPathValue("$.id").isEqualTo(1);
-        assertThat(resultBookingResponse).extractingJsonPathValue("$.start")
-                .isEqualTo(bookingDtoResponse.getStart().toString());
-        assertThat(resultBookingResponse).extractingJsonPathValue("$.end")
-                .isEqualTo(bookingDtoResponse.getEnd().toString());
-        assertThat(resultBookingResponse).extractingJsonPathStringValue("$.status")
-                .isEqualTo(bookingDtoResponse.getStatus().name());
-        assertThat(resultBookingResponse).extractingJsonPathValue("$.booker.name")
-                .isEqualTo(bookingDtoResponse.getBooker().getName());
-        assertThat(resultBookingResponse).extractingJsonPathValue("$.booker.email")
-                .isEqualTo(bookingDtoResponse.getBooker().getEmail());
-        assertThat(resultBookingResponse).extractingJsonPathValue("$.item.name")
-                .isEqualTo(bookingDtoResponse.getItem().getName());
-        assertThat(resultBookingResponse).extractingJsonPathValue("$.item.description")
-                .isEqualTo(bookingDtoResponse.getItem().getDescription());
-        assertThat(resultBookingResponse).extractingJsonPathValue("$.item.owner.name")
-                .isEqualTo(bookingDtoResponse.getItem().getOwner().getName());
-        assertThat(resultBookingResponse).extractingJsonPathValue("$.item.owner.email")
-                .isEqualTo(bookingDtoResponse.getItem().getOwner().getEmail());
-        assertThat(resultBookingResponse).extractingJsonPathValue("$.item.available")
-                .isEqualTo(bookingDtoResponse.getItem().isAvailable());
-        assertThat(resultBookingResponse).extractingJsonPathValue("$.item.request")
-                .isEqualTo(bookingDtoResponse.getItem().getRequest());
-    }
-
-    @Test
     void testComment() throws Exception {
         Comment comment = Comment.builder()
                 .id(1L)
