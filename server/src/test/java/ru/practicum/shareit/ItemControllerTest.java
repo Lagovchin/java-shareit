@@ -10,8 +10,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.practicum.shareit.comment.CommentService;
-import ru.practicum.shareit.comment.dto.CommentDto;
-import ru.practicum.shareit.comment.model.CommentDescriptionObject;
 import ru.practicum.shareit.exceptions.NotOwnerException;
 import ru.practicum.shareit.item.ItemController;
 import ru.practicum.shareit.item.ItemMapper;
@@ -20,7 +18,6 @@ import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.User;
 
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.hamcrest.Matchers.*;
