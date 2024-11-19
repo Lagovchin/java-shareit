@@ -16,16 +16,17 @@ import ru.practicum.shareit.item.dto.ItemDto;
 @RequiredArgsConstructor
 public class ItemController {
     private final ItemClient itemClient;
+    private static final String HEADER = "X-Sharer-User-Id";
 
     @PostMapping
     ResponseEntity<Object> add(@RequestBody ItemDto itemDto,
-                               @RequestHeader("X-Sharer-User-Id") long userId) {
+                               @RequestHeader(HEADER) long userId) {
         return itemClient.addItem(userId, itemDto);
     }
 
     @PatchMapping("/{id}")
     ResponseEntity<Object> update(@RequestBody ItemDto itemDto,
-                                  @RequestHeader("X-Sharer-User-Id") long userId,
+                                  @RequestHeader(HEADER) long userId,
                                   @PathVariable long id) {
         return itemClient.update(userId, itemDto, id);
     }
@@ -37,7 +38,7 @@ public class ItemController {
     }
 
     @GetMapping
-    ResponseEntity<Object> getUserItems(@RequestHeader("X-Sharer-User-Id") long userId) {
+    ResponseEntity<Object> getUserItems(@RequestHeader(HEADER) long userId) {
 
         return itemClient.getUserItems(userId);
     }
@@ -55,7 +56,7 @@ public class ItemController {
 
     @PostMapping(value = "/{idItem}/comment")
     ResponseEntity<Object> comment(@PathVariable long idItem,
-                                   @RequestHeader("X-Sharer-User-Id") long idUser,
+                                   @RequestHeader(HEADER) long idUser,
                                    @RequestBody CommentDescription comment) {
 
         return itemClient.postComment(idItem, idUser, comment);

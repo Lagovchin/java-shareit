@@ -34,9 +34,9 @@ public class ItemControllerTest {
     @Autowired
     private MockMvc mvc;
     @MockBean
-    ItemService is;
+    private ItemService is;
     @MockBean
-    CommentService cs;
+    private CommentService cs;
 
     private final ObjectMapper mapper = JsonMapper.builder()
             .findAndAddModules()

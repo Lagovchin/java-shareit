@@ -16,7 +16,7 @@ import java.util.List;
 @RequestMapping(path = "/requests")
 @AllArgsConstructor
 public class ItemRequestController {
-    ItemRequestService itemRequestService;
+    private ItemRequestService itemRequestService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

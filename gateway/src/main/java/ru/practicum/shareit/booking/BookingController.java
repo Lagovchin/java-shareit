@@ -13,7 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 import ru.practicum.shareit.booking.dto.BookItemRequestDto;
 import ru.practicum.shareit.booking.dto.BookingState;
 
-
 @Controller
 @RequestMapping(path = "/bookings")
 @RequiredArgsConstructor
@@ -21,9 +20,10 @@ import ru.practicum.shareit.booking.dto.BookingState;
 @Validated
 public class BookingController {
     private final BookingClient bookingClient;
+    private static final String HEADER = "X-Sharer-User-Id";
 
     @GetMapping
-    public ResponseEntity<Object> getBookings(@RequestHeader("X-Sharer-User-Id") long userId,
+    public ResponseEntity<Object> getBookings(@RequestHeader(HEADER) long userId,
                                               @RequestParam(name = "state", defaultValue = "all") String stateParam,
                                               @PositiveOrZero @RequestParam(name = "from", defaultValue = "0") Integer from,
                                               @Positive @RequestParam(name = "size", defaultValue = "10") Integer size) {
@@ -34,14 +34,14 @@ public class BookingController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> bookItem(@RequestHeader("X-Sharer-User-Id") long userId,
+    public ResponseEntity<Object> bookItem(@RequestHeader(HEADER) long userId,
                                            @RequestBody @Valid BookItemRequestDto requestDto) {
         log.info("Creating booking {}, userId={}", requestDto, userId);
         return bookingClient.bookItem(userId, requestDto);
     }
 
     @GetMapping("/{bookingId}")
-    public ResponseEntity<Object> getBooking(@RequestHeader("X-Sharer-User-Id") long userId,
+    public ResponseEntity<Object> getBooking(@RequestHeader(HEADER) long userId,
                                              @PathVariable Long bookingId) {
         log.info("Get booking {}, userId={}", bookingId, userId);
         return bookingClient.getBooking(userId, bookingId);
@@ -49,13 +49,13 @@ public class BookingController {
 
     @PatchMapping("/{idItem}")
     public ResponseEntity<Object> approve(@PathVariable long idItem,
-                                          @RequestHeader("X-Sharer-User-Id") long idUser,
+                                          @RequestHeader(HEADER) long idUser,
                                           @RequestParam(name = "approved") String state) {
         return bookingClient.approve(idItem, idUser, state);
     }
 
     @GetMapping("/owner")
-    public ResponseEntity<Object> getOwnerList(@RequestHeader("X-Sharer-User-Id") long idUser) {
+    public ResponseEntity<Object> getOwnerList(@RequestHeader(HEADER) long idUser) {
 
         return bookingClient.getOwnerBookings(idUser);
     }

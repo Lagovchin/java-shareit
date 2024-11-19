@@ -37,7 +37,7 @@ class BookingControllerTest {
     @Autowired
     private MockMvc mvc;
     @MockBean
-    BookingService bookingService;
+    private BookingService bookingService;
 
     private final ObjectMapper mapper = JsonMapper.builder()
             .findAndAddModules()

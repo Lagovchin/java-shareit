@@ -21,9 +21,9 @@ import java.util.Optional;
 @Component
 @AllArgsConstructor
 public class ItemRequestServiceImpl implements ItemRequestService {
-    ItemRequestRepository itemRequestRepository;
-    UserService userService;
-    ItemRepository itemRepository;
+    private ItemRequestRepository itemRequestRepository;
+    private UserService userService;
+    private ItemRepository itemRepository;
 
     @Override
     public ItemRequestDto add(long idRequester, String description) throws NotFoundDataException {
